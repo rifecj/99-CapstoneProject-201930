@@ -3,10 +3,10 @@
   Displays the Graphical User Interface (GUI) and communicates with the robot.
 
   Authors:  Your professors (for the framework)
-    and Sam Alvares.
+    and Sam C Alvares.
   Spring term, 2018-2019.
 """
-# DONE 1:  Put your name in the above.
+# TODO 1:  Put your name in the above.
 
 import tkinter
 from tkinter import ttk
