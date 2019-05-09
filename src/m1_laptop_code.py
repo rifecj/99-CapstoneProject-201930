@@ -10,7 +10,6 @@
 
 import tkinter
 from tkinter import ttk
-
 import mqtt_remote_method_calls as mqtt
 import m2_laptop_code as m2
 import m3_laptop_code as m3
