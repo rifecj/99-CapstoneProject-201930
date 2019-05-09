@@ -3,14 +3,13 @@
   Displays the Graphical User Interface (GUI) and communicates with the robot.
 
   Authors:  Your professors (for the framework)
-    and PUT_YOUR_NAME_HERE.
+    and Chloe Rife.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put your name in the above.
+# done 1:  Put your name in the above.
 
 import tkinter
 from tkinter import ttk
-
 import mqtt_remote_method_calls as mqtt
 import m2_laptop_code as m2
 import m3_laptop_code as m3
