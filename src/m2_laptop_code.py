@@ -25,6 +25,9 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+def spin_left(speed, distance):
+    Spin_left = ttk.Button(frame, text = "Spin Left")
+    Spin_left.grid()
 
     # Return your frame:
     return frame
