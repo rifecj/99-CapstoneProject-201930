@@ -28,6 +28,7 @@ def get_my_frame(root, window, mqtt_sender):
 
     spin_left_button = ttk.Button(frame, text="Spin Left")
     spin_right_button = ttk.Button(frame, text="Spin Right")
+    Ready = ttk.Button(frame, text = "Multi-Spin")
     speed_left = ttk.Entry(frame)
     distance_left = ttk.Entry(frame)
     speed_right = ttk.Entry(frame)
@@ -50,6 +51,7 @@ def get_my_frame(root, window, mqtt_sender):
     distance_left.grid(row = 5, column = 0)
     speed_right.grid(row = 3, column = 2)
     distance_right.grid(row = 5, column = 2)
+    Ready.grid(row = 5, column = 1)
 
 
 # def spin_left(speed, distance):
