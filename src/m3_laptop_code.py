@@ -29,13 +29,22 @@ def get_my_frame(root, window, mqtt_sender):
     arm_calibrate_button = ttk.Button(frame, text="Calibrate arm")
     arm_to_entry = ttk.Entry(frame)
     label = ttk.Label(frame, text="Arm to:")
+    speed_entry = ttk.Entry(frame)
+    label2 = ttk.Label(frame, text="Speed:")
     arm_down_button = ttk.Button(frame, text="Arm down")
 
+    arm_up_button['command'] = lambda: handle_arm_up(speed_entry, mqtt_sender)
+    arm_down_button['command'] = lambda: handle_arm_down(speed_entry, mqtt_sender)
+
+    speed_entry.insert(0, '100')
+
     arm_up_button.grid(row=1, column=0)
-    arm_calibrate_button.grid(row=4, column=1)
+    arm_calibrate_button.grid(row=5, column=0)
     label.grid(row=2, column=0)
     arm_to_entry.grid(row=2, column=1)
     arm_down_button.grid(row=3, column=0)
+    label2.grid(row=4, column=0)
+    speed_entry.grid(row=4, column=1)
 
     # Return your frame:
     return frame
@@ -58,3 +67,10 @@ class MyLaptopDelegate(object):
 
 
 # TODO: Add functions here as needed.
+def handle_arm_up(speed_entry, mqqt_sender):
+    print('Arm up message:', speed_entry.get())
+    mqqt_sender.send_message("arm_up", [speed_entry.get()])
+
+def handle_arm_down(speed_entry, mqqt_sender):
+    print('Arm down message:', speed_entry.get())
+    mqqt_sender.send_message("arm_down", [speed_entry.get()])
