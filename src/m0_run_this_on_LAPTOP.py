@@ -6,7 +6,7 @@
     and Sam Alvares, Chloe Rife, Jake Powell.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put the name of EACH team member in the above.
+# Done 1:  Put the name of EACH team member in the above.
 
 import tkinter
 from tkinter import ttk
