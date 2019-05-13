@@ -37,7 +37,7 @@ class MyRobotDelegate(object):
                 self.robot.arm_and_claw.motor.turn_off()
                 break
 
-    
+     
 
     def arm_down(self, speed):
         arm_to(0)
