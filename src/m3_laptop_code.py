@@ -25,6 +25,17 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+    arm_up_button = ttk.Button(frame, text="Arm up")
+    arm_calibrate_button = ttk.Button(frame, text="Calibrate arm")
+    arm_to_entry = ttk.Entry(frame)
+    label = ttk.Label(frame, text="Arm to:")
+    arm_down_button = ttk.Button(frame, text="Arm down")
+
+    arm_up_button.grid(row=1, column=0)
+    arm_calibrate_button.grid(row=4, column=1)
+    label.grid(row=2, column=0)
+    arm_to_entry.grid(row=2, column=1)
+    arm_down_button.grid(row=3, column=0)
 
     # Return your frame:
     return frame
