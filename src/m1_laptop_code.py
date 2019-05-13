@@ -18,13 +18,28 @@ import m3_laptop_code as m3
 def get_my_frame(root, window, mqtt_sender):
     # Construct your frame:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-    frame_label = ttk.Label(frame, text="PUT_YOUR_NAME_HERE")
+    frame_label = ttk.Label(frame, text="Chloe Rife")
     frame_label.grid()
-    # TODO 2: Put your name in the above.
+    # done 2: Put your name in the above.
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+    forward_speed_label = ttk.Label(frame, text="Forward")
+    forward_speed_label.grid(row=1, column=0)
+    forward_speed_entry = ttk.Entry(frame, width=8)
+    forward_speed_entry.insert(0, "600")
+    forward_speed_entry.grid(row=2, column=0)
 
+    forward_inches_label = ttk.Label(frame, text="Inches")
+    forward_inches_label.grid(row=3, column=0)
+    forward_inches_entry = ttk.Entry(frame, width=8)
+    forward_inches_entry.insert(0, "600")
+    forward_inches_entry.grid(row=4, column=0)
+
+    forward_button = ttk.Button(frame, text="Forward")
+    forward_button.grid(row=5, column=0)
+    forward_button['command'] = lambda: print("Forward button")
+    root.bind('<Up>', lambda event: print("Forward key"))
     # Return your frame:
     return frame
 
