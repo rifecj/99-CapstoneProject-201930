@@ -24,22 +24,34 @@ def get_my_frame(root, window, mqtt_sender):
     # DONE 2: Put your name in the above.
 
     # Add the rest of your GUI to your frame:
-    # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+    # DONE: Put your GUI onto your frame (using sub-frames if you wish).
 
     spin_left_button = ttk.Button(frame, text="Spin Left")
     spin_right_button = ttk.Button(frame, text="Spin Right")
-    speed = ttk.Entry(frame)
-    distance = ttk.Entry(frame)
-    speed2 = ttk.Entry(frame)
-    distance2 = ttk.Entry(frame)
+    Ready = ttk.Button(frame, text = "Multi-Spin")
+    speed_left = ttk.Entry(frame)
+    distance_left = ttk.Entry(frame)
+    speed_right = ttk.Entry(frame)
+    distance_right = ttk.Entry(frame)
+
+    left_spin_speed = ttk.Label(frame, text="Left wheel spin speed (0 to 100)")
+    right_spin_speed = ttk.Label(frame, text="Right wheel spin speed (0 to 100)")
+
+    left_spin_distance = ttk.Label(frame, text="Left wheel distance")
+    right_spin_distance = ttk.Label(frame, text="Right wheel distance")
 
     frame_label.grid(row=0, column=1)
     spin_left_button.grid(row=1, column=0)
     spin_right_button.grid(row=1, column=2)
-    speed2.grid(row = 2, column = 0)
-    distance2.grid(row = 3, column = 0)
-    speed.grid(row = 2, column = 2)
-    distance.grid(row = 3, column = 2)
+    left_spin_speed.grid(row = 2, column = 0)
+    right_spin_speed.grid(row = 2, column = 2)
+    left_spin_distance.grid(row = 4, column = 0)
+    right_spin_distance.grid(row = 4, column = 2)
+    speed_left.grid(row = 3, column = 0)
+    distance_left.grid(row = 5, column = 0)
+    speed_right.grid(row = 3, column = 2)
+    distance_right.grid(row = 5, column = 2)
+    Ready.grid(row = 5, column = 1)
 
 
 # def spin_left(speed, distance):
