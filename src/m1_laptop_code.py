@@ -24,22 +24,25 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
-    forward_speed_label = ttk.Label(frame, text="Forward")
-    forward_speed_label.grid(row=1, column=0)
+    r=1
+    forward_speed_label = ttk.Label(frame, text="Speed")
+    forward_speed_label.grid(row=r, column=0)
     forward_speed_entry = ttk.Entry(frame, width=8)
-    forward_speed_entry.insert(0, "600")
-    forward_speed_entry.grid(row=2, column=0)
+    forward_speed_entry.insert(0, "100")
+    forward_speed_entry.grid(row=r, column=1)
 
     forward_inches_label = ttk.Label(frame, text="Inches")
-    forward_inches_label.grid(row=3, column=0)
+    forward_inches_label.grid(row=r+1, column=0)
     forward_inches_entry = ttk.Entry(frame, width=8)
-    forward_inches_entry.insert(0, "600")
-    forward_inches_entry.grid(row=4, column=0)
+    forward_inches_entry.insert(0, "100")
+    forward_inches_entry.grid(row=r+1, column=1)
 
     forward_button = ttk.Button(frame, text="Forward")
-    forward_button.grid(row=5, column=0)
-    forward_button['command'] = lambda: print("Forward button")
-    root.bind('<Up>', lambda event: print("Forward key"))
+    forward_button.grid(row=r+2, column=0)
+    forward_button['command'] = lambda: handle_forward(forward_speed_entry,forward_inches_entry,mqtt_sender)
+    root.bind('<Up>', lambda: print("Forward key"))
+
+    forward_button
     # Return your frame:
     return frame
 
@@ -58,6 +61,9 @@ class MyLaptopDelegate(object):
         self.mqtt_sender = mqtt_sender
 
     # TODO: Add methods here as needed.
+def handle_forward(speed,len_inches,mqtt_sender):
+    print('go forward {} inches at {}% speed'.format(speed,len_inches))
+    mqtt_sender.send_message("forward",[speed,len_inches])
 
 
 # TODO: Add functions here as needed.
