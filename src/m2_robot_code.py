@@ -36,22 +36,14 @@ class MyRobotDelegate(object):
         print_message_received("Left_Spin", [Left_speed, Left_distance])
         speed = -int(Left_speed)
         distance = -int(Left_distance*5.5)
-        self.robot.drive_system.left_motor.turn_on(speed)
-        self.robot.drive_system.right_motor.turn_on(-speed)
-        current_position = self.robot.drive_system.left_motor.reset_position()
-        final_spot = distance + current_position
+        self.robot.drive_system.left_motor.turn_on(-speed)
+        self.robot.drive_system.right_motor.turn_on(speed)
+        self.robot.drive_system.left_motor.reset_position()
+        final_spot = distance
         while True:
-            if self.robot.drive_system.left_motor.get_position() >= final_spot:
+            if abs(self.robot.drive_system.left_motor.get_position()) >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
-
-        # current_position = self.robot.drive_system.left_motor.get_position()
-        # final_spot = current_position + distance
-        #
-        # while True:
-        #     if self.robot.drive_system.left_motor.get_position() <= final_spot:
-        #         self.robot.drive_system.stop()
-        #         break
 
 
 
@@ -70,7 +62,7 @@ class MyRobotDelegate(object):
         current_position = self.robot.drive_system.right_motor.reset_position()
         final_spot = distance + current_position
         while True:
-            if self.robot.drive_system.right_motor.get_position() >= final_spot:
+            if self.robot.drive_system.right_motor.get_position() >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
 
