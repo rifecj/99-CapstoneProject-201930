@@ -37,6 +37,14 @@ class MyRobotDelegate(object):
         speed = -int(Left_speed)
         distance = -int(Left_distance*5.5)
         self.robot.drive_system.left_motor.turn_on(speed)
+        self.robot.drive_system.right_motor.turn_on(-speed)
+        current_position = self.robot.drive_system.left_motor.reset_position()
+        final_spot = distance + current_position
+        while True:
+            if self.robot.drive_system.left_motor.get_position() <= final_spot:
+                self.robot.drive_system.stop()
+                break
+
         # current_position = self.robot.drive_system.left_motor.get_position()
         # final_spot = current_position + distance
         #
@@ -58,7 +66,8 @@ class MyRobotDelegate(object):
         speed = int(Right_speed)
         distance = int(Right_distance*5.5)
         self.robot.drive_system.right_motor.turn_on(speed)
-        current_position = self.robot.drive_system.right_motor.get_position()
+        self.robot.drive_system.left_motor.turn_on(-speed)
+        current_position = self.robot.drive_system.right_motor.reset_position()
         final_spot = distance + current_position
         while True:
             if self.robot.drive_system.right_motor.get_position() >= final_spot:
