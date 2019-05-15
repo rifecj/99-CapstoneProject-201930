@@ -92,8 +92,8 @@ def Spin_Left(speed_left, distance_left, mqtt_sender):
     mqtt_sender.send_message("Left_Spin", [distance_left.get()])
 
 def Spin_Right(speed_right, distance_right, mqtt_sender):
-    print("Speed of Right Spin:", speed_right)
-    print("Distance of Right Spin:", distance_right)
+    print("Speed of Right Spin:", speed_right.get())
+    print("Distance of Right Spin:", distance_right.get())
     mqtt_sender.send_message("Right_Spin", [speed_right.get()])
     mqtt_sender.send_message("Right_Spin", [distance_right.get()])
 
