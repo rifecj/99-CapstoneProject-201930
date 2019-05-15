@@ -44,6 +44,7 @@ class MyRobotDelegate(object):
             if self.robot.drive_system.left_motor.get_position() >= len_deg
                 self.robot.drive_system.stop()
                 break
+        print_message_received("forward",[speed,len_inches])
 
 
 def print_message_received(method_name, arguments):
