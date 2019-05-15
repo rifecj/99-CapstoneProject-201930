@@ -36,7 +36,7 @@ def get_my_frame(root, window, mqtt_sender):
     arm_up_button['command'] = lambda: handle_arm_up(speed_entry, mqtt_sender)
     arm_down_button['command'] = lambda: handle_arm_down(speed_entry, mqtt_sender)
     arm_calibrate_button['command'] = lambda: handle_calibrate(speed_entry, mqtt_sender)
-    arm_to_button['command'] = lambda: handle_arm_to(speed_entry, mqtt_sender)
+    arm_to_button['command'] = lambda: handle_arm_to(arm_to_entry, speed_entry, mqtt_sender)
 
     speed_entry.insert(0, '100')
 
@@ -84,6 +84,6 @@ def handle_calibrate(speed_entry, mqqt_sender):
     mqqt_sender.send_message("arm_calibrate", [speed_entry.get()])
 
 
-def handle_arm_to(speed_entry, mqqt_sender):
-    print('Arm to message:', speed_entry.get())
-    mqqt_sender.send_message("arm_to", [speed_entry.get()])
+def handle_arm_to(arm_to_entry, speed_entry, mqqt_sender):
+    print('Arm to speed =', speed_entry.get()+',', 'Arm to location =', arm_to_entry.get())
+    mqqt_sender.send_message("arm_to", [arm_to_entry.get(), speed_entry.get()])
