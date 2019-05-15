@@ -31,19 +31,33 @@ class MyRobotDelegate(object):
         print_message_received("stop")
         self.robot.drive_system.stop()
 
-    def Left_Spin(self,left_spin_speed,left_spin_distance):
-        print_message_received("Left_Spin", [left_spin_speed,left_spin_distance])
-        speed = int(left_spin_speed)
-        distance = int(left_spin_distance/5.5)
+
+    def Left_Spin(self,Left_speed,Left_distance):
+        print_message_received("Left_Spin", [Left_speed, Left_distance])
+        speed = int(Left_speed)
+        distance = int(Left_distance/5.5)
         self.robot.drive_system.left_motor.turn_on(speed)
+        current_position = self.robot.drive_system.left_motor.get_position()
+        final_spot = current_position + distance
+
+        while True:
+            self.robot.drive_system.left_motor.get_position() != final_spot
+            if self.robot.drive_system.left_motor.get_position() == final_spot:
+                self.robot.drive_system.stop()
 
 
 
-    def Right_Spin(self,right_spin_speed,right_spin_distance):
-        print_message_received("Right_Spin", [right_spin_speed, right_spin_distance])
-        speed = int(right_spin_speed)
-        distance = int(right_spin_distance/5.5)
+
+
+
+
+
+    def Right_Spin(self,Right_speed, Right_distance):
+        print_message_received("Right_Spin", [Right_speed, Right_distance])
+        speed = int(Right_speed)
+        distance = int(Right_distance/5.5)
         self.robot.drive_system.right_motor.turn_on(speed)
+        traveled = self.robot.drive_system.wheel_circumference(distance)
 
 
 
