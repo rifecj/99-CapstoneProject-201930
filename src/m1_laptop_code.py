@@ -39,7 +39,7 @@ def get_my_frame(root, window, mqtt_sender):
 
     forward_button = ttk.Button(frame, text="Forward")
     forward_button.grid(row=r+2, column=0)
-    forward_button['command'] = lambda: handle_forward(forward_speed_entry,forward_inches_entry,mqtt_sender)
+    forward_button['command'] = lambda: handle_forward(forward_speed_entry.get(),forward_inches_entry.get(),mqtt_sender)
     root.bind('<Up>', lambda: print("Forward key"))
 
     forward_button
