@@ -38,10 +38,12 @@ class MyRobotDelegate(object):
     #         if self.robot.drive_system.left_motor.get_position() >
 
     def forward(self,speed,len_inches):
+        self.robot.drive_system.left_motor.reset_position()
         len_deg=len_inches*(360/(3.14*1.5))
         self.robot.drive_system.go(speed,speed)
         while True:
             print_message_received("forward", [speed, len_inches])
+            print(self.robot.drive_system.left_motor.get_position())
             if self.robot.drive_system.left_motor.get_position() >= len_deg:
                 self.robot.drive_system.stop()
                 break
