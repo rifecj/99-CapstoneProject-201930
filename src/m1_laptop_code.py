@@ -24,25 +24,41 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
-    r=1
+    r=2
     forward_speed_label = ttk.Label(frame, text="Speed")
     forward_speed_label.grid(row=r, column=0)
-    forward_speed_entry = ttk.Entry(frame, width=8)
+    forward_speed_entry = ttk.Entry(frame, width=10)
     forward_speed_entry.insert(0, "100")
     forward_speed_entry.grid(row=r, column=1)
 
     forward_inches_label = ttk.Label(frame, text="Inches")
     forward_inches_label.grid(row=r+1, column=0)
-    forward_inches_entry = ttk.Entry(frame, width=8)
+    forward_inches_entry = ttk.Entry(frame, width=10)
     forward_inches_entry.insert(0, "5")
     forward_inches_entry.grid(row=r+1, column=1)
 
-    forward_button = ttk.Button(frame, text="Forward")
-    forward_button.grid(row=r+2, column=0)
+    forward_button = ttk.Button(frame, text="Forward", width=10)
+    forward_button.grid(row=r-1, column=1)
     forward_button['command'] = lambda: handle_forward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
-    #root.bind('<Up>', lambda: print("Forward key"))
 
-    forward_button
+    c=2
+    backward_speed_label = ttk.Label(frame, text="Speed")
+    backward_speed_label.grid(row=r, column=c)
+    backward_speed_entry = ttk.Entry(frame, width=10)
+    backward_speed_entry.insert(0, "100")
+    backward_speed_entry.grid(row=r, column=c)
+
+    backward_inches_label = ttk.Label(frame, text="Inches")
+    backward_inches_label.grid(row=r+1, column=c)
+    backward_inches_entry = ttk.Entry(frame, width=10)
+    backward_inches_entry.insert(0, "5")
+    backward_inches_entry.grid(row=r+1, column=c)
+
+    backward_button = ttk.Button(frame, text="Backward", width=10)
+    backward_button.grid(row=r-1, column=c)
+    backward_button['command'] = lambda: handle_backward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
+
+
     # Return your frame:
     return frame
 
@@ -66,5 +82,8 @@ def handle_forward(speed,len_inches,mqtt_sender):
     print('go forward {} inches at {}% speed'.format(len_inches,speed))
     mqtt_sender.send_message("forward",[speed,len_inches])
 
+def handle_backward(speed,len_inches,mqtt_sender):
+    print('go backward {} inches at {}% speed'.format(len_inches,speed))
+    mqtt_sender.send_message("backward",[speed,len_inches])
 
 # TODO: Add functions here as needed.
