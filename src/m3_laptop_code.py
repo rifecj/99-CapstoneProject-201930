@@ -77,8 +77,8 @@ def handle_arm_down(speed_entry, mqqt_sender):
     print('Arm down message:', speed_entry.get())
     mqqt_sender.send_message("arm_down", [speed_entry.get()])
 
-def handle_calibrate(mqqt_sender):
-    speed = 30
-    print('Arm calibrate message:', speed)
-    mqqt_sender.send_message("arm_calibrate", [speed])
+
+def handle_calibrate(speed_entry, mqqt_sender):
+    print('Arm calibrate message:', speed_entry.get())
+    mqqt_sender.send_message("arm_calibrate", [speed_entry.get()])
 
