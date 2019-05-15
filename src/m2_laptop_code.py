@@ -88,10 +88,10 @@ class MyLaptopDelegate(object):
 def Spin_Left(speed_left, distance_left, mqtt_sender):
     print("Speed of Left Spin:", speed_left.get())
     print("Distance of Left Spin:", distance_left.get())
-    mqtt_sender.send_message("Left_Spin", int(speed_left.get()), int(distance_left.get()))
+    mqtt_sender.send_message("Left_Spin", [int(speed_left.get()), int(distance_left.get())])
 
 def Spin_Right(speed_right, distance_right, mqtt_sender):
     print("Speed of Right Spin:", speed_right.get())
     print("Distance of Right Spin:", distance_right.get())
-    mqtt_sender.send_message("Right_Spin", int(speed_right.get()),int(distance_right.get()))
+    mqtt_sender.send_message("Right_Spin", [int(speed_right.get()),int(distance_right.get())])
 

@@ -11,8 +11,8 @@
 import tkinter
 from tkinter import ttk
 import mqtt_remote_method_calls as mqtt
-import m2_laptop_code as m2
-import m3_laptop_code as m3
+#import m2_laptop_code as m2
+#import m3_laptop_code as m3
 
 
 def get_my_frame(root, window, mqtt_sender):
@@ -34,13 +34,13 @@ def get_my_frame(root, window, mqtt_sender):
     forward_inches_label = ttk.Label(frame, text="Inches")
     forward_inches_label.grid(row=r+1, column=0)
     forward_inches_entry = ttk.Entry(frame, width=8)
-    forward_inches_entry.insert(0, "100")
+    forward_inches_entry.insert(0, "5")
     forward_inches_entry.grid(row=r+1, column=1)
 
     forward_button = ttk.Button(frame, text="Forward")
     forward_button.grid(row=r+2, column=0)
-    forward_button['command'] = lambda: handle_forward(forward_speed_entry.get(),forward_inches_entry.get(),mqtt_sender)
-    root.bind('<Up>', lambda: print("Forward key"))
+    forward_button['command'] = lambda: handle_forward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
+    #root.bind('<Up>', lambda: print("Forward key"))
 
     forward_button
     # Return your frame:
@@ -61,8 +61,9 @@ class MyLaptopDelegate(object):
         self.mqtt_sender = mqtt_sender
 
     # TODO: Add methods here as needed.
+
 def handle_forward(speed,len_inches,mqtt_sender):
-    print('go forward {} inches at {}% speed'.format(speed,len_inches))
+    print('go forward {} inches at {}% speed'.format(len_inches,speed))
     mqtt_sender.send_message("forward",[speed,len_inches])
 
 
