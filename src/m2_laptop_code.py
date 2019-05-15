@@ -53,24 +53,13 @@ def get_my_frame(root, window, mqtt_sender):
     distance_right.grid(row = 5, column = 2)
     Ready.grid(row = 5, column = 1)
 
-    spin_left_button['command'] = lambda: Spin_Left(left_spin_speed,left_spin_distance, mqtt_sender)
-    spin_right_button['command'] = lambda: Spin_Right(right_spin_speed,right_spin_distance,mqtt_sender)
+    spin_left_button['command'] = lambda: Spin_Left(speed_left, distance_left, mqtt_sender)
+    spin_right_button['command'] = lambda: Spin_Right(speed_right, distance_right, mqtt_sender)
 
 
     # Return your frame:
     return frame
 
-def Spin_Left(left_spin_speed, left_spin_distance, mqtt_sender):
-    print("Speed of Left Spin:", left_spin_speed.get())
-    print("Distance of Left Spin:", left_spin_distance.get())
-    mqtt_sender.send_message("Left_Spin", [left_spin_speed.get()])
-    mqtt_sender.send_message("Left_Spin", [left_spin_distance.get()])
-
-def Spin_Right(right_spin_speed, right_spin_distance, mqtt_sender):
-    print("Speed of Right Spin:", right_spin_speed)
-    print("Distance of Right Spin:", right_spin_distance)
-    mqtt_sender.send_message("Right_Spin", [right_spin_speed.get()])
-    mqtt_sender.send_message("Right_Spin", [right_spin_distance.get()])
 
 
 
@@ -95,3 +84,16 @@ class MyLaptopDelegate(object):
 
 
 # TODO: Add functions here as needed.
+
+def Spin_Left(speed_left, distance_left, mqtt_sender):
+    print("Speed of Left Spin:", speed_left.get())
+    print("Distance of Left Spin:", distance_left.get())
+    mqtt_sender.send_message("Left_Spin", [speed_left.get()])
+    mqtt_sender.send_message("Left_Spin", [distance_left.get()])
+
+def Spin_Right(speed_right, distance_right, mqtt_sender):
+    print("Speed of Right Spin:", speed_right)
+    print("Distance of Right Spin:", distance_right)
+    mqtt_sender.send_message("Right_Spin", [speed_right.get()])
+    mqtt_sender.send_message("Right_Spin", [distance_right.get()])
+
