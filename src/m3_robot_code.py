@@ -29,7 +29,7 @@ class MyRobotDelegate(object):
     # TODO: Add methods here as needed.
     def arm_up(self, speed):
         real_speed = int(speed)
-        touch = rosebot.TouchSensor()
+        touch = rosebot.TouchSensor('A')
         self.robot.arm_and_claw.motor.turn_on(real_speed)
         while True:
             test_touch = touch.is_pressed()
@@ -37,14 +37,25 @@ class MyRobotDelegate(object):
                 self.robot.arm_and_claw.motor.turn_off()
                 break
 
-    def arm_down(self):
-        #arm_to(0)
+    def arm_to(self, x, speed):
+        if x != self.robot.arm_and_claw.motor.get_position():
+            return
+        elif x < self.robot.arm_and_claw.motor.get_position():
+            while self.robot.arm_and_claw.motor.get_position() <= x:
+                self.robot.arm_and_claw.motor.turn_on(speed)
+        else:
+            while self.robot.arm_and_claw.motor.get_position() <= x:
+                self.robot.arm_and_claw.motor.turn_on(-speed)
 
+    def arm_down(self, speed):
+        self.arm_to(0, speed)
 
-
-
-
-
+    def arm_calibrate(self, speed):
+        self.arm_up(speed)
+        self.robot.arm_and_claw.motor.reset_position()
+        while self.robot.arm_and_claw.motor.get_position() >= -14.2*360:
+            self.robot.arm_and_claw.motor.turn_on(-speed)
+        self.robot.arm_and_claw.motor.reset_position()
 
 
 def print_message_received(method_name, arguments=None):
