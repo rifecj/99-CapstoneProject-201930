@@ -1,10 +1,10 @@
 """
   Capstone Project.  Code to run on the EV3 robot (NOT on a laptop).
   Author:  Your professors (for the framework)
-    and PUT_YOUR_NAME_HERE.
+    and Jake Powell.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put your name in the above.
+# DONE 1:  Put your name in the above.
 
 import mqtt_remote_method_calls as mqtt
 import rosebot
@@ -30,6 +30,27 @@ class MyRobotDelegate(object):
         """ Tells the robot to stop moving. """
         print_message_received("stop")
         self.robot.drive_system.stop()
+
+    def Left_Spin(self,left_spin_speed,left_spin_distance):
+        print_message_received("Left_Spin", [left_spin_speed,left_spin_distance])
+        speed = int(left_spin_speed)
+        distance = int(left_spin_distance/5.5)
+        self.robot.drive_system.left_motor.turn_on(speed)
+
+
+
+    def Right_Spin(self,right_spin_speed,right_spin_distance):
+        print_message_received("Right_Spin", [right_spin_speed, right_spin_distance])
+        speed = int(right_spin_speed)
+        distance = int(right_spin_distance/5.5)
+        self.robot.drive_system.right_motor.turn_on(speed)
+
+
+
+
+
+
+
 
     # TODO: Add methods here as needed.
 
