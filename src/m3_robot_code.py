@@ -22,6 +22,7 @@ class MyRobotDelegate(object):
         self.robot = robot  # type: rosebot.RoseBot
         self.mqtt_sender = None  # type: mqtt.MqttClient
         self.is_time_to_quit = False  # Set this to True to exit the robot code
+        self.cal = 0
 
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
@@ -29,7 +30,7 @@ class MyRobotDelegate(object):
     # TODO: Add methods here as needed.
     def arm_up(self, speed):
         real_speed = int(speed)
-        touch = rosebot.TouchSensor('1')
+        touch = self.robot.sensor_system.touch_sensor
         self.robot.arm_and_claw.motor.turn_on(real_speed)
         while True:
             test_touch = touch.is_pressed()
@@ -39,26 +40,38 @@ class MyRobotDelegate(object):
                 break
 
     def arm_to(self, x, speed):
-        if x != self.robot.arm_and_claw.motor.get_position():
+        print('Arm to', x, speed)
+        if self.cal != 1:
+            self.arm_calibrate(speed)
+        if x == self.robot.arm_and_claw.motor.get_position():
             return
         elif x < self.robot.arm_and_claw.motor.get_position():
-            while self.robot.arm_and_claw.motor.get_position() <= x:
-                self.robot.arm_and_claw.motor.turn_on(speed)
+            self.robot.arm_and_claw.motor.turn_on(-speed)
+            while self.robot.arm_and_claw.motor.get_position() >= x:
+                pass
+            self.robot.arm_and_claw.motor.turn_off()
         else:
+            self.robot.arm_and_claw.motor.turn_on(speed)
             while self.robot.arm_and_claw.motor.get_position() <= x:
-                self.robot.arm_and_claw.motor.turn_on(-speed)
+                pass
+            self.robot.arm_and_claw.motor.turn_off()
 
     def arm_down(self, speed):
         self.arm_to(0, speed)
 
+    def color_go(self, color):
+        print(color)
+
     def arm_calibrate(self, speed):
-        print('go down')
+        self.cal = 1
+        print('Arm Cal', speed)
+        self.arm_up(speed)
+        self.robot.arm_and_claw.motor.reset_position()
         self.robot.arm_and_claw.motor.turn_on(-speed)
-        # self.arm_up(speed)
-        # self.robot.arm_and_claw.motor.reset_position()
-        # while self.robot.arm_and_claw.motor.get_position() >= -14.2*360:
-        #     self.robot.arm_and_claw.motor.turn_on(-speed)
-        # self.robot.arm_and_claw.motor.reset_position()
+        while abs(self.robot.arm_and_claw.motor.get_position()) <= 14.2*360:
+            pass
+        self.robot.arm_and_claw.motor.turn_off()
+        self.robot.arm_and_claw.motor.reset_position()
 
 
 def print_message_received(method_name, arguments=None):
