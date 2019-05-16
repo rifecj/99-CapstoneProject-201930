@@ -29,6 +29,7 @@ def get_my_frame(root, window, mqtt_sender):
     spin_left_button = ttk.Button(frame, text="Spin Left")
     spin_right_button = ttk.Button(frame, text="Spin Right")
     spin_until = ttk.Button(frame, text = "Sprint2")
+    speed_until = ttk.Entry(frame)
     speed_left = ttk.Entry(frame)
     distance_left = ttk.Entry(frame)
     speed_right = ttk.Entry(frame)
