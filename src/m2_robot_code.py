@@ -26,6 +26,7 @@ class MyRobotDelegate(object):
         Blob = self.robot.sensor_system.camera.get_biggest_blob()
         X = Blob.center
         Area = Blob.get_area()
+        Area2 = Area
 
 
 
