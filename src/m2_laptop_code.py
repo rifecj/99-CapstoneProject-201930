@@ -55,7 +55,7 @@ def get_my_frame(root, window, mqtt_sender):
 
     spin_left_button['command'] = lambda: Spin_Left(speed_left, distance_left, mqtt_sender)
     spin_right_button['command'] = lambda: Spin_Right(speed_right, distance_right, mqtt_sender)
-    X = abs(speed_left)
+    # X = abs(speed_left)
 
     # spin_until['command'] = lambda: Spin_Until( X, delta, speed_right, speed_left, big_enough)
 
