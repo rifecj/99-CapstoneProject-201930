@@ -45,14 +45,6 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
-
-
-
-
-
-
-
-
     def Right_Spin(self,Right_speed, Right_distance):
         print_message_received("Right_Spin", [Right_speed, Right_distance])
         speed = int(Right_speed)
@@ -65,6 +57,19 @@ class MyRobotDelegate(object):
             if self.robot.drive_system.right_motor.get_position() >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
+
+    def Spin_Until(self,signature, X, delta, speed, big_enough):
+
+
+
+
+
+
+
+
+
+
+
 
 
 
