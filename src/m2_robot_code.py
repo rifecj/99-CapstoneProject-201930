@@ -62,7 +62,7 @@ class MyRobotDelegate(object):
         self.robot.drive_system.left_motor.reset_position()
         final_spot = distance
         while True:
-            if abs(self.robot.drive_system.right_motor.get_position()) >= abs(final_spot):
+            if abs(self.robot.drive_system.left_motor_motor.get_position()) >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
 
