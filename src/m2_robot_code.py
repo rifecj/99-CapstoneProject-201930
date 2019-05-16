@@ -22,6 +22,12 @@ class MyRobotDelegate(object):
         self.robot = robot  # type: rosebot.RoseBot
         self.mqtt_sender = None  # type: mqtt.MqttClient
         self.is_time_to_quit = False  # Set this to True to exit the robot code
+        Blob = self.robot.sensor_system.camera.get_biggest_blob()
+        X = Blob.center
+        Area = Blob.get_area()
+
+
+
 
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
@@ -58,7 +64,8 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
-    def Spin_Until(self,signature, X, delta, speed, big_enough):
+
+    # def Spin_Until(self,signature, X, delta, speed1, speed2, big_enough):
 
 
 
