@@ -11,8 +11,8 @@
 import tkinter
 from tkinter import ttk
 import mqtt_remote_method_calls as mqtt
-#import m2_laptop_code as m2
-#import m3_laptop_code as m3
+import m2_laptop_code as m2
+import m3_laptop_code as m3
 
 
 
@@ -29,29 +29,40 @@ def get_my_frame(root, window, mqtt_sender):
     #Forward GUI
     # ----------------------------------------------------------------
     r=2
+    forward_speed_value = tkinter.IntVar()
     forward_speed_label = ttk.Label(frame, text="Speed")
     forward_speed_label.grid(row=r, column=0)
-    forward_speed_entry = ttk.Entry(frame, width=10)
-    forward_speed_entry.insert(0, "100")
+    forward_speed_entry = ttk.LabeledScale(frame, forward_speed_value, 0,100)
+    #forward_speed_entry.insert(0, "100")
     forward_speed_entry.grid(row=r, column=1)
+
+    # slider_value = tkinter.IntVar()
+    # delete_later_entry = ttk.LabeledScale(frame, slider_value, 0,100)
+    # #delete_later_entry.insert(0, "100")
+    # delete_later_entry.grid(row=10, column=0)
+    # delete_later_button = ttk.Button(frame, text="Delete")
+    # delete_later_button.grid(row=9, column=0)
+    # delete_later_button['command']=lambda: print(slider_value.get())
+
 
     forward_inches_label = ttk.Label(frame, text="Inches")
     forward_inches_label.grid(row=r+1, column=0)
-    forward_inches_entry = ttk.Entry(frame, width=10)
+    forward_inches_entry = ttk.Entry(frame, width=8)
     forward_inches_entry.insert(0, "5")
     forward_inches_entry.grid(row=r+1, column=1)
 
     forward_button = ttk.Button(frame, text="Forward", width=10)
     forward_button.grid(row=r-1, column=1)
-    forward_button['command'] = lambda: handle_forward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
+    forward_button['command'] = lambda: handle_forward(forward_speed_value.get(),int(forward_inches_entry.get()),mqtt_sender)
     # ----------------------------------------------------------------
     # Backward GUI
     # ----------------------------------------------------------------
     c=2
+    backward_speed_value = tkinter.IntVar()
     backward_speed_label = ttk.Label(frame, text="Speed")
     backward_speed_label.grid(row=r, column=c)
-    backward_speed_entry = ttk.Entry(frame, width=10)
-    backward_speed_entry.insert(0, "100")
+    backward_speed_entry = ttk.LabeledScale(frame, backward_speed_value, 0,100)
+    #backward_speed_entry.insert(0, "100")
     backward_speed_entry.grid(row=r, column=c)
 
     backward_inches_label = ttk.Label(frame, text="Inches")
@@ -62,12 +73,14 @@ def get_my_frame(root, window, mqtt_sender):
 
     backward_button = ttk.Button(frame, text="Backward", width=10)
     backward_button.grid(row=r-1, column=c)
-    backward_button['command'] = lambda: handle_backward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
+    backward_button['command'] = lambda: handle_backward(forward_speed_value.get(),int(backward_inches_entry.get()),mqtt_sender)
 
     # ----------------------------------------------------------------
     # Forward Until GUI
     # ----------------------------------------------------------------
-    c = 4
+    c = 3
+    r = 4
+
     forward_until_speed_label = ttk.Label(frame, text="Speed")
     forward_until_speed_label.grid(row=r, column=c)
     forward_until_speed_entry = ttk.Entry(frame, width=10)
