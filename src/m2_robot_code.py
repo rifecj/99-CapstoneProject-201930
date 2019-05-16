@@ -22,6 +22,13 @@ class MyRobotDelegate(object):
         self.robot = robot  # type: rosebot.RoseBot
         self.mqtt_sender = None  # type: mqtt.MqttClient
         self.is_time_to_quit = False  # Set this to True to exit the robot code
+        self.cal = 0
+        Blob = self.robot.sensor_system.camera.get_biggest_blob()
+        X = Blob.center
+        Area = Blob.get_area()
+
+
+
 
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
@@ -36,30 +43,14 @@ class MyRobotDelegate(object):
         print_message_received("Left_Spin", [Left_speed, Left_distance])
         speed = -int(Left_speed)
         distance = -int(Left_distance*5.5)
-        self.robot.drive_system.left_motor.turn_on(speed)
-        self.robot.drive_system.right_motor.turn_on(-speed)
-        current_position = self.robot.drive_system.left_motor.reset_position()
-        final_spot = distance + current_position
+        self.robot.drive_system.left_motor.turn_on(-speed)
+        self.robot.drive_system.right_motor.turn_on(speed)
+        self.robot.drive_system.left_motor.reset_position()
+        final_spot = distance
         while True:
-            if self.robot.drive_system.left_motor.get_position() >= final_spot:
+            if abs(self.robot.drive_system.left_motor.get_position()) >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
-
-        # current_position = self.robot.drive_system.left_motor.get_position()
-        # final_spot = current_position + distance
-        #
-        # while True:
-        #     if self.robot.drive_system.left_motor.get_position() <= final_spot:
-        #         self.robot.drive_system.stop()
-        #         break
-
-
-
-
-
-
-
-
 
     def Right_Spin(self,Right_speed, Right_distance):
         print_message_received("Right_Spin", [Right_speed, Right_distance])
@@ -70,9 +61,23 @@ class MyRobotDelegate(object):
         current_position = self.robot.drive_system.right_motor.reset_position()
         final_spot = distance + current_position
         while True:
-            if self.robot.drive_system.right_motor.get_position() >= final_spot:
+            if self.robot.drive_system.right_motor.get_position() >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
+
+
+    # def Spin_Until(self,signature, X, delta, speed1, speed2, big_enough):
+
+
+
+
+
+
+
+
+
+
+
 
 
 
