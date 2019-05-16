@@ -15,6 +15,7 @@ import mqtt_remote_method_calls as mqtt
 #import m3_laptop_code as m3
 
 
+
 def get_my_frame(root, window, mqtt_sender):
     # Construct your frame:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -24,6 +25,9 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+    #----------------------------------------------------------------
+    #Forward GUI
+    # ----------------------------------------------------------------
     r=2
     forward_speed_label = ttk.Label(frame, text="Speed")
     forward_speed_label.grid(row=r, column=0)
@@ -40,7 +44,9 @@ def get_my_frame(root, window, mqtt_sender):
     forward_button = ttk.Button(frame, text="Forward", width=10)
     forward_button.grid(row=r-1, column=1)
     forward_button['command'] = lambda: handle_forward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
-
+    # ----------------------------------------------------------------
+    # Backward GUI
+    # ----------------------------------------------------------------
     c=2
     backward_speed_label = ttk.Label(frame, text="Speed")
     backward_speed_label.grid(row=r, column=c)
@@ -58,7 +64,34 @@ def get_my_frame(root, window, mqtt_sender):
     backward_button.grid(row=r-1, column=c)
     backward_button['command'] = lambda: handle_backward(int(forward_speed_entry.get()),int(forward_inches_entry.get()),mqtt_sender)
 
+    # ----------------------------------------------------------------
+    # Forward Until GUI
+    # ----------------------------------------------------------------
+    c = 4
+    forward_until_speed_label = ttk.Label(frame, text="Speed")
+    forward_until_speed_label.grid(row=r, column=c)
+    forward_until_speed_entry = ttk.Entry(frame, width=10)
+    forward_until_speed_entry.insert(0, "100")
+    forward_until_speed_entry.grid(row=r, column=c+1)
 
+    forward_until_dist_label = ttk.Label(frame, text="Distance")
+    forward_until_dist_label.grid(row=r + 1, column=c)
+    forward_until_dist_entry = ttk.Entry(frame, width=10)
+    forward_until_dist_entry.insert(0, "5")
+    forward_until_dist_entry.grid(row=r+1, column=c+1)
+
+    forward_until_delta_label = ttk.Label(frame, text="Leeway")
+    forward_until_delta_label.grid(row=r + 2, column=c)
+    forward_until_delta_entry = ttk.Entry(frame, width=10)
+    forward_until_delta_entry.insert(0, "5")
+    forward_until_delta_entry.grid(row=r+2, column=c+1)
+
+    forward_until_button = ttk.Button(frame, text="Forward Until", width=10)
+    forward_until_button.grid(row=r - 1, column=c)
+    forward_until_button['command'] = lambda: handle_forward_until(int(forward_until_speed_entry.get()),
+                                                                   int(forward_until_dist_entry.get()),
+                                                                   int(forward_until_delta_entry.get()),
+                                                                   mqtt_sender)
     # Return your frame:
     return frame
 
@@ -76,7 +109,11 @@ class MyLaptopDelegate(object):
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
 
-    # TODO: Add methods here as needed.
+    # todo: Add methods here as needed.
+
+
+
+# TODO: Add functions here as needed.
 
 def handle_forward(speed,len_inches,mqtt_sender):
     print('go forward {} inches at {}% speed'.format(len_inches,speed))
@@ -85,5 +122,6 @@ def handle_forward(speed,len_inches,mqtt_sender):
 def handle_backward(speed,len_inches,mqtt_sender):
     print('go backward {} inches at {}% speed'.format(len_inches,speed))
     mqtt_sender.send_message("backward",[speed,len_inches])
-
-# TODO: Add functions here as needed.
+def handle_forward_until(speed, dist, delta, mqtt_sender):
+    print('go forward at {}% speed until {} +/- {}')
+    mqtt_sender.send_message("forward_until", [speed, dist, delta])
