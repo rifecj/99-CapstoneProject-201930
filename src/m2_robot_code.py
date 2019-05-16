@@ -59,15 +59,14 @@ class MyRobotDelegate(object):
         distance = int(Right_distance*5.5)
         self.robot.drive_system.right_motor.turn_on(speed)
         self.robot.drive_system.left_motor.turn_on(-speed)
-        current_position = self.robot.drive_system.right_motor.reset_position()
-        final_spot = distance + current_position
+        self.robot.drive_system.left_motor.reset_position()
+        final_spot = distance
         while True:
             if abs(self.robot.drive_system.right_motor.get_position()) >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
 
 
-    # def Spin_Until(self,signature, X, delta, speed1, speed2, big_enough):
 
 
 
