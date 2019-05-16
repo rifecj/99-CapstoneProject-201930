@@ -55,8 +55,8 @@ class MyRobotDelegate(object):
 
     def Right_Spin(self,Right_speed, Right_distance):
         print_message_received("Right_Spin", [Right_speed, Right_distance])
-        speed = int(Right_speed)
-        distance = int(Right_distance*5.5)
+        speed = -int(Right_speed)
+        distance = -int(Right_distance*5.5)
         self.robot.drive_system.right_motor.turn_on(speed)
         self.robot.drive_system.left_motor.turn_on(-speed)
         self.robot.drive_system.left_motor.reset_position()
