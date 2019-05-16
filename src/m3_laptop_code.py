@@ -6,7 +6,7 @@
     and Sam C Alvares.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put your name in the above.
+# DONE 1:  Put your name in the above.
 
 import tkinter
 from tkinter import ttk
@@ -32,32 +32,35 @@ def get_my_frame(root, window, mqtt_sender):
     speed_entry = ttk.Entry(frame)
     label2 = ttk.Label(frame, text="Speed:")
     arm_down_button = ttk.Button(frame, text="Arm down")
+
     radiolabel = ttk.Label(frame, text="Move forward until color:")
 
     radio_frame = ttk.Frame(frame, borderwidth=10, relief='groove')
 
-    radio1 = ttk.Radiobutton(radio_frame, text='red',
-                             value='red')
-    radio2 = ttk.Radiobutton(radio_frame, text='orange',
-                             value='orange')
-    radio3 = ttk.Radiobutton(radio_frame, text='yellow',
-                             value='yellow')
-    radio4 = ttk.Radiobutton(radio_frame, text='green',
-                             value='green')
-    radio5 = ttk.Radiobutton(radio_frame, text='blue',
-                             value='blue')
-    radio6 = ttk.Radiobutton(radio_frame, text='white',
-                             value='white')
-    radio7 = ttk.Radiobutton(radio_frame, text='black',
-                             value='black')
+    radio1 = ttk.Radiobutton(radio_frame, text='No Color',
+                             value='NoColor')
+    radio2 = ttk.Radiobutton(radio_frame, text='Black',
+                             value='Black')
+    radio3 = ttk.Radiobutton(radio_frame, text='Blue',
+                             value='Blue')
+    radio4 = ttk.Radiobutton(radio_frame, text='Green',
+                             value='Green')
+    radio5 = ttk.Radiobutton(radio_frame, text='Yellow',
+                             value='Yellow')
+    radio6 = ttk.Radiobutton(radio_frame, text='Red',
+                             value='Red')
+    radio7 = ttk.Radiobutton(radio_frame, text='White',
+                             value='White')
+    radio8 = ttk.Radiobutton(radio_frame, text='Brown',
+                             value='Brown')
 
     radio_observer = tkinter.StringVar()
 
-    for radio in [radio1, radio2, radio3, radio4, radio5, radio6, radio7]:
+    for radio in [radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8]:
         radio['variable'] = radio_observer  # They all need the SAME observer
 
-    for radio in [radio1, radio2, radio3, radio4, radio5, radio6, radio7]:
-        radio['command'] = lambda: handle_color(radio_observer, mqtt_sender)
+    for radio in [radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8]:
+        radio['command'] = lambda: handle_color(radio_observer, speed_entry, mqtt_sender)
 
     # Layout the widgets (here, in a row with padding between them).
     # You can see more on layout in a subsequent example.
@@ -66,7 +69,7 @@ def get_my_frame(root, window, mqtt_sender):
         widget.grid(row=8, column=c, padx=20)
         c = c + 1
 
-    for radio in [radio1, radio2, radio3, radio4, radio5, radio6, radio7]:
+    for radio in [radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8]:
         radio.grid(sticky='w')
 
     arm_up_button['command'] = lambda: handle_arm_up(speed_entry, mqtt_sender)
@@ -87,8 +90,6 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Return your frame:
     return frame
-
-
 
 
 class MyLaptopDelegate(object):
@@ -128,6 +129,6 @@ def handle_arm_to(arm_to_entry, speed_entry, mqqt_sender):
     mqqt_sender.send_message("arm_to", [int(arm_to_entry.get()), int(speed_entry.get())])
 
 
-def handle_color(radiobutton_observer, mqqt_sender):
+def handle_color(radiobutton_observer, speed, mqqt_sender):
     print('The radiobutton changed to', radiobutton_observer.get())
-    mqqt_sender.send_message("color_go", [radiobutton_observer.get()])
+    mqqt_sender.send_message("color_go", [radiobutton_observer.get(), str(speed.get())])

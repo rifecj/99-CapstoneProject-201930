@@ -59,8 +59,16 @@ class MyRobotDelegate(object):
     def arm_down(self, speed):
         self.arm_to(0, speed)
 
-    def color_go(self, color):
-        print(color)
+    def color_go(self, color, speed):
+        print(color, speed)
+        number = self.robot.sensor_system.color_sensor.get_color_number_from_color_name(color)
+        self.robot.drive_system.go(speed, speed)
+        while True:
+            current_num = self.robot.sensor_system.color_sensor.get_color()
+            if current_num == number:
+                self.robot.drive_system.stop()
+                break
+
 
     def arm_calibrate(self, speed):
         self.cal = 1
@@ -72,6 +80,7 @@ class MyRobotDelegate(object):
             pass
         self.robot.arm_and_claw.motor.turn_off()
         self.robot.arm_and_claw.motor.reset_position()
+
 
 
 def print_message_received(method_name, arguments=None):
