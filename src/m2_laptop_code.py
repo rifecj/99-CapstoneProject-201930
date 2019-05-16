@@ -37,6 +37,7 @@ def get_my_frame(root, window, mqtt_sender):
 
     left_spin_speed = ttk.Label(frame, text="Left wheel spin speed (0 to 100)")
     right_spin_speed = ttk.Label(frame, text="Right wheel spin speed (0 to 100)")
+    spin_until_label = ttk.Label(frame, text = "Enter X,Delta,Speed,big_enough")
 
     left_spin_distance = ttk.Label(frame, text="Left wheel distance")
     right_spin_distance = ttk.Label(frame, text="Right wheel distance")
@@ -53,6 +54,8 @@ def get_my_frame(root, window, mqtt_sender):
     speed_right.grid(row = 3, column = 2)
     distance_right.grid(row = 5, column = 2)
     spin_until.grid(row = 1, column = 1)
+    spin_until_label.grid(row = 2, column = 1)
+    speed_until.grid(row = 3, column = 1)
 
     spin_left_button['command'] = lambda: Spin_Left(speed_left, distance_left, mqtt_sender)
     spin_right_button['command'] = lambda: Spin_Right(speed_right, distance_right, mqtt_sender)
