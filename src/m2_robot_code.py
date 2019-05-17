@@ -73,24 +73,39 @@ class MyRobotDelegate(object):
         Speed = -int(speed)
         Big_enough = int(big_enough)
         Delta = int(delta)
-        self.robot.drive_system.right_motor.turn_on(Speed)
-        self.robot.drive_system.left_motor.turn_on(-Speed)
+        Blob = self.robot.sensor_system.camera.get_biggest_blob()
+        print(Blob)
+        Current = Blob.center.x
+        Position = int(X)
+        if Current > Position:
+            self.robot.drive_system.right_motor.turn_on(Speed)
+            self.robot.drive_system.left_motor.turn_on(-Speed)
+        if Current < Position:
+            self.robot.drive_system.right_motor.turn_on(-Speed)
+            self.robot.drive_system.left_motor.turn_on(Speed)
         while True:
             Blob = self.robot.sensor_system.camera.get_biggest_blob()
-            if Blob.get_area() >= abs(Delta + Big_enough):
+            current_position = Blob.center.x
+            print(Blob)
+
+            if Blob.get_area() >= abs(Big_enough) and abs(current_position - X) <= Delta:
+                self.robot.drive_system.left_motor.turn_off()
+                self.robot.drive_system.right_motor.turn_off()
+
+
                 break
 
 
 
 
-        if Blob.get_area() >= abs(Big_enough + Delta):
-            Current = Blob.center.x
-        else:
-
-        self.robot.drive_system.left_motor.reset_position()
-        Current = Blob.center.x
-        Final_spot = Delta + Current
-        while True:
+        # if Blob.get_area() >= abs(Big_enough + Delta):
+        #     Current = Blob.center.x
+        # else:
+        #
+        # self.robot.drive_system.left_motor.reset_position()
+        # Current = Blob.center.x
+        # Final_spot = Delta + Current
+        # while True:
 
 
 
