@@ -69,6 +69,8 @@ def get_my_frame(root, window, mqtt_sender):
 
     spin_left_button['command'] = lambda: Spin_Left(speed_left, distance_left, mqtt_sender)
     spin_right_button['command'] = lambda: Spin_Right(speed_right, distance_right, mqtt_sender)
+    spin_until['command'] = lambda: Spin_until(X_until, Delta_until, speed_until, big_enough, mqtt_sender)
+
     # X = abs(speed_left)
 
     # spin_until['command'] = lambda: Spin_Until( X, delta, speed_right, speed_left, big_enough)
@@ -111,4 +113,14 @@ def Spin_Right(speed_right, distance_right, mqtt_sender):
     print("Speed of Right Spin:", speed_right.get())
     print("Distance of Right Spin:", distance_right.get())
     mqtt_sender.send_message("Right_Spin", [int(speed_right.get()),int(distance_right.get())])
+
+def Spin_until(X, delta, speed, big_enough, mqtt_sender):
+    print("X Position of Blob:", X.get())
+    print("Delta:", delta.get())
+    print("Speed:", speed.get())
+    print("Big Enough:", big_enough.get())
+    mqtt_sender.send_message("Spin_until", [int(X.get()), int(delta.get()), int(speed.get()), int(big_enough.get())])
+
+
+
 

@@ -57,14 +57,53 @@ class MyRobotDelegate(object):
         print_message_received("Right_Spin", [Right_speed, Right_distance])
         speed = -int(Right_speed)
         distance = -int(Right_distance*5.5)
-        self.robot.drive_system.right_motor.turn_on(-speed)
-        self.robot.drive_system.left_motor.turn_on(speed)
+        self.robot.drive_system.right_motor.turn_on(speed)
+        self.robot.drive_system.left_motor.turn_on(-speed)
         self.robot.drive_system.left_motor.reset_position()
         final_spot = distance
         while True:
-            if abs(self.robot.drive_system.left_motor_motor.get_position()) >= abs(final_spot):
+            if abs(self.robot.drive_system.left_motor.get_position()) >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
+
+
+    def Spin_until(self, X, delta, speed, big_enough):
+
+        print_message_received("Spin_until", [X, delta, speed, big_enough])
+        Speed = -int(speed)
+        Big_enough = int(big_enough)
+        Delta = int(delta)
+        self.robot.drive_system.right_motor.turn_on(Speed)
+        self.robot.drive_system.left_motor.turn_on(-Speed)
+        while True:
+            Blob = self.robot.sensor_system.camera.get_biggest_blob()
+            if Blob.get_area() >= abs(Delta + Big_enough):
+                break
+
+
+
+
+        if Blob.get_area() >= abs(Big_enough + Delta):
+            Current = Blob.center.x
+        else:
+
+        self.robot.drive_system.left_motor.reset_position()
+        Current = Blob.center.x
+        Final_spot = Delta + Current
+        while True:
+
+
+
+        # Current = Blob.center.x
+        # self.robot.drive_system.left_motor.reset_position()
+
+        # final_spot = Current
+
+
+
+
+
+
 
 
 
