@@ -59,10 +59,10 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
-    def forward_until(self,speed, dist, delta):
+    def forward_until(self,speed, dist):
         self.robot.drive_system.go(speed,speed)
         while True:
-            print_message_received("forward_until",[speed,dist,delta])
+            print_message_received("forward_until",[speed,dist])
             dist_away_in=self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(dist_away_in)
             if dist_away_in < dist:
