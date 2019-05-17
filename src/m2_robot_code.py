@@ -98,24 +98,6 @@ class MyRobotDelegate(object):
 
 
 
-        # if Blob.get_area() >= abs(Big_enough + Delta):
-        #     Current = Blob.center.x
-        # else:
-        #
-        # self.robot.drive_system.left_motor.reset_position()
-        # Current = Blob.center.x
-        # Final_spot = Delta + Current
-        # while True:
-
-
-
-        # Current = Blob.center.x
-        # self.robot.drive_system.left_motor.reset_position()
-
-        # final_spot = Current
-
-
-
 
 
 
