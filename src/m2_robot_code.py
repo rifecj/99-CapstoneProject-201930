@@ -26,6 +26,7 @@ class MyRobotDelegate(object):
         Blob = self.robot.sensor_system.camera.get_biggest_blob()
         X = Blob.center
         Area = Blob.get_area()
+        Area2 = Area
 
 
 
@@ -43,8 +44,8 @@ class MyRobotDelegate(object):
         print_message_received("Left_Spin", [Left_speed, Left_distance])
         speed = -int(Left_speed)
         distance = -int(Left_distance*5.5)
-        self.robot.drive_system.left_motor.turn_on(-speed)
-        self.robot.drive_system.right_motor.turn_on(speed)
+        self.robot.drive_system.left_motor.turn_on(speed)
+        self.robot.drive_system.right_motor.turn_on(-speed)
         self.robot.drive_system.left_motor.reset_position()
         final_spot = distance
         while True:
@@ -54,19 +55,45 @@ class MyRobotDelegate(object):
 
     def Right_Spin(self,Right_speed, Right_distance):
         print_message_received("Right_Spin", [Right_speed, Right_distance])
-        speed = int(Right_speed)
-        distance = int(Right_distance*5.5)
+        speed = -int(Right_speed)
+        distance = -int(Right_distance*5.5)
         self.robot.drive_system.right_motor.turn_on(speed)
         self.robot.drive_system.left_motor.turn_on(-speed)
-        current_position = self.robot.drive_system.right_motor.reset_position()
-        final_spot = distance + current_position
+        self.robot.drive_system.left_motor.reset_position()
+        final_spot = distance
         while True:
-            if self.robot.drive_system.right_motor.get_position() >= abs(final_spot):
+            if abs(self.robot.drive_system.left_motor.get_position()) >= abs(final_spot):
                 self.robot.drive_system.stop()
                 break
 
 
-    # def Spin_Until(self,signature, X, delta, speed1, speed2, big_enough):
+    def Spin_until(self, X, delta, speed, big_enough):
+
+        print_message_received("Spin_until", [X, delta, speed, big_enough])
+        Speed = -int(speed)
+        Big_enough = int(big_enough)
+        Delta = int(delta)
+        Blob = self.robot.sensor_system.camera.get_biggest_blob()
+        print(Blob)
+        Current = Blob.center.x
+        Position = int(X)
+        if Current > Position:
+            self.robot.drive_system.right_motor.turn_on(Speed)
+            self.robot.drive_system.left_motor.turn_on(-Speed)
+        if Current < Position:
+            self.robot.drive_system.right_motor.turn_on(-Speed)
+            self.robot.drive_system.left_motor.turn_on(Speed)
+        while True:
+            Blob = self.robot.sensor_system.camera.get_biggest_blob()
+            current_position = Blob.center.x
+            print(Blob)
+
+            if Blob.get_area() >= abs(Big_enough) and abs(current_position - X) <= Delta:
+                self.robot.drive_system.left_motor.turn_off()
+                self.robot.drive_system.right_motor.turn_off()
+
+
+                break
 
 
 
@@ -87,7 +114,16 @@ class MyRobotDelegate(object):
 
 
 
-    # TODO: Add methods here as needed.
+
+
+
+
+
+
+
+
+
+    # DONE: Add methods here as needed.
 
 
 def print_message_received(method_name, arguments=None):
@@ -96,5 +132,5 @@ def print_message_received(method_name, arguments=None):
     print("for the  ", method_name, "  method, with arguments", arguments)
 
 
-# TODO: Add functions here as needed.
+# DONE: Add functions here as needed.
 

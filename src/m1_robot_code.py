@@ -22,6 +22,7 @@ class MyRobotDelegate(object):
         self.robot = robot  # type: rosebot.RoseBot
         self.mqtt_sender = None  # type: mqtt.MqttClient
         self.is_time_to_quit = False  # Set this to True to exit the robot code
+        self.cal=0
 
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
@@ -58,12 +59,21 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
+    def forward_until(self,speed, dist):
+        self.robot.drive_system.go(speed,speed)
+        while True:
+            print_message_received("forward_until",[speed,dist])
+            dist_away_in=self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(dist_away_in)
+            if dist_away_in < dist:
+                self.robot.drive_system.stop()
+                break
+
+
+
+# TODO: Add functions here as needed.
 
 def print_message_received(method_name, arguments):
     print()
     print("The robot's delegate has received a message")
     print("for the  ", method_name, "  method, with arguments", arguments)
-
-
-# TODO: Add functions here as needed.
-

@@ -2,10 +2,10 @@
   Capstone Project.  Code to run on the EV3 robot (NOT on a laptop).
   This code is the delegate for handling messages from the shared GUI.
   Authors:  Your professors (for the framework)
-    and PUT_YOUR_NAMES_HERE.
+    and Jake Powell, Chloe Rife, Sam Alvares.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put the name of EACH team member in the above.
+# DONE 1:  Put the name of EACH team member in the above.
 
 import time
 
@@ -40,7 +40,7 @@ def main():
     mqtt_sender = mqtt.MqttClient(delegate)
     delegate.set_mqtt_sender(mqtt_sender)
 
-    mqtt_sender.connect_to_pc(lego_robot_number=2)
+    mqtt_sender.connect_to_pc(lego_robot_number=22)
     # DONE 3: Replace 99 in the above by YOUR team's robot number.
 
     time.sleep(1)  # To let the connection process complete
