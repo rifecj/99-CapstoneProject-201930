@@ -69,7 +69,6 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
-
     def arm_calibrate(self, speed):
         self.cal = 1
         print('Arm Cal', speed)
@@ -82,12 +81,11 @@ class MyRobotDelegate(object):
         self.robot.arm_and_claw.motor.reset_position()
 
 
-
 def print_message_received(method_name, arguments=None):
     print()
     print("The robot's delegate has received a message")
     print("for the  ", method_name, "  method, with arguments", arguments)
 
 
-# TODO: Add functions here as needed.
+# DONE: Add functions here as needed.
 
