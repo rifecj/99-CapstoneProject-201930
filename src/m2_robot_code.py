@@ -123,7 +123,7 @@ class MyRobotDelegate(object):
 
 
 
-    # TODO: Add methods here as needed.
+    # DONE: Add methods here as needed.
 
 
 def print_message_received(method_name, arguments=None):
@@ -132,5 +132,5 @@ def print_message_received(method_name, arguments=None):
     print("for the  ", method_name, "  method, with arguments", arguments)
 
 
-# TODO: Add functions here as needed.
+# DONE: Add functions here as needed.
 

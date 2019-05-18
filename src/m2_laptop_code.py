@@ -97,12 +97,12 @@ class MyLaptopDelegate(object):
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
 
-    # TODO: Add methods here as needed.
+    # DONE: Add methods here as needed.
 
 
 
 
-# TODO: Add functions here as needed.
+# DONE: Add functions here as needed.
 
 def Spin_Left(speed_left, distance_left, mqtt_sender):
     print("Speed of Left Spin:", speed_left.get())
